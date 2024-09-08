@@ -1,6 +1,6 @@
 entrypoint="index.html"
 hidden=[".config"]
-modules = ["web:v2-20230623-0b7a606"]
+modules = ["web", "python-3.11"]
 
 [nix]
 channel = "stable-23_11"
@@ -8,3 +8,27 @@ channel = "stable-23_11"
 [deployment]
 publicDir = "/"
 deploymentTarget = "static"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Flask Server"
+
+[[workflows.workflow]]
+name = "Flask Server"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python main.py"
+waitForPort = 5000
