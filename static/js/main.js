@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cvForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const cvContent = document.getElementById('cv-content').value;
+            const template = document.getElementById('template').value;
             
             if (!cvContent.trim()) {
                 showError('Please enter your CV content.');
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ cv_content: cvContent }),
+                body: JSON.stringify({ cv_content: cvContent, template: template }),
             })
             .then(response => response.json())
             .then(data => {
@@ -31,7 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     throw new Error(data.error);
                 }
                 localStorage.setItem('enhancedCV', data.enhanced_cv);
-                window.location.href = '/result';
+                localStorage.setItem('selectedTemplate', data.template);
+                window.location.href = `/result?template=${data.template}`;
             })
             .catch(error => {
                 showError('An error occurred while enhancing your CV. Please try again.');
@@ -46,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (enhancedCvDiv) {
         const enhancedCV = localStorage.getItem('enhancedCV');
         if (enhancedCV) {
-            enhancedCvDiv.textContent = enhancedCV;
+            enhancedCvDiv.innerHTML = enhancedCV;
         } else {
             enhancedCvDiv.textContent = 'No enhanced CV found. Please go back and submit your CV for enhancement.';
         }

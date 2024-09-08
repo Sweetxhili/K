@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic CV Template</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-serif">
+    <div class="container mx-auto p-8 bg-white shadow-lg mt-10">
+        <header class="mb-8 text-center">
+            <h1 class="text-4xl font-bold">{{name}}</h1>
+            <p class="text-xl">{{title}}</p>
+        </header>
+        
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 border-b-2 border-gray-300">Professional Summary</h2>
+            <p>{{summary}}</p>
+        </section>
+        
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 border-b-2 border-gray-300">Experience</h2>
+            {{experience|safe}}
+        </section>
+        
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 border-b-2 border-gray-300">Education</h2>
+            {{education|safe}}
+        </section>
+        
+        <section>
+            <h2 class="text-2xl font-bold mb-4 border-b-2 border-gray-300">Skills</h2>
+            {{skills|safe}}
+        </section>
+    </div>
+</body>
+</html>
